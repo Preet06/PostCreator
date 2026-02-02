@@ -4,14 +4,20 @@ const User = require('../models/User');
 const protect = async (req, res, next) => {
     let token;
 
-    if (
+    // Check for token in cookies first
+    if (req.cookies && req.cookies.token) {
+        token = req.cookies.token;
+    }
+    // Fallback to Header for testing scripts
+    else if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
     ) {
-        try {
-            // Get token from header
-            token = req.headers.authorization.split(' ')[1];
+        token = req.headers.authorization.split(' ')[1];
+    }
 
+    if (token) {
+        try {
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -27,9 +33,7 @@ const protect = async (req, res, next) => {
             console.error('Auth Middleware Error:', error.message);
             res.status(401).json({ message: 'Not authorized, token failed' });
         }
-    }
-
-    if (!token) {
+    } else {
         res.status(401).json({ message: 'Not authorized, no token' });
     }
 };

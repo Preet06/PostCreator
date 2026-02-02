@@ -15,9 +15,9 @@ const postSchema = new mongoose.Schema({
         type: String,
         maxlength: 280,
     }],
-    scheduledTime: {
+    scheduledAt: {
         type: Date,
-        required: true,
+        // Optional for drafts, but required when status is 'scheduled'
     },
     status: {
         type: String,
@@ -35,8 +35,8 @@ const postSchema = new mongoose.Schema({
 });
 
 // Indexes for common queries
-postSchema.index({ userId: 1, scheduledTime: 1 });
-postSchema.index({ status: 1, scheduledTime: 1 });
+postSchema.index({ userId: 1, scheduledAt: 1 });
+postSchema.index({ status: 1, scheduledAt: 1 });
 
 const Post = mongoose.model('Post', postSchema);
 module.exports = Post;

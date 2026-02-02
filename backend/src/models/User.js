@@ -30,6 +30,8 @@ const userSchema = new mongoose.Schema({
             default: 'UTC',
         }
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
 }, {
     timestamps: true,
 });

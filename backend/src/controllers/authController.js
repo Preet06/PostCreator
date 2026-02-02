@@ -1,11 +1,30 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const sendEmail = require('../utils/emailService');
 
 // Helper to generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '7d', // Consistent with task list
+        expiresIn: '7d',
     });
+};
+
+// Helper to set cookie
+const sendTokenCookie = (res, token, statusCode, data) => {
+    const options = {
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Lax'
+    };
+
+    res.status(statusCode)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            ...data
+        });
 };
 
 // @desc    Register a new user
@@ -34,11 +53,11 @@ exports.register = async (req, res) => {
         });
 
         if (user) {
-            res.status(201).json({
+            const token = generateToken(user._id);
+            sendTokenCookie(res, token, 201, {
                 _id: user._id,
                 name: user.name,
-                email: user.email,
-                token: generateToken(user._id)
+                email: user.email
             });
         }
     } catch (error) {
@@ -58,11 +77,11 @@ exports.login = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user && (await user.comparePassword(password))) {
-            res.json({
+            const token = generateToken(user._id);
+            sendTokenCookie(res, token, 200, {
                 _id: user._id,
                 name: user.name,
-                email: user.email,
-                token: generateToken(user._id),
+                email: user.email
             });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
@@ -83,4 +102,105 @@ exports.getMe = async (req, res) => {
         console.error('getMe error:', error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
+};
+
+// @desc    Forgot Password
+// @route   POST /api/auth/forgot-password
+// @access  Public
+exports.forgotPassword = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(20).toString('hex');
+
+        // Hash token and set to field
+        user.resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(resetToken)
+            .digest('hex');
+
+        // Set expire (1 hour)
+        user.resetPasswordExpire = Date.now() + 60 * 60 * 1000;
+
+        await user.save();
+
+        // Create reset URL
+        const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/reset-password/${resetToken}`;
+
+        const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Password Reset Token',
+                message,
+                html: `<p>You are receiving this email because you (or someone else) has requested the reset of a password.</p><p>Please click the link below to reset your password:</p><a href="${resetUrl}">${resetUrl}</a>`
+            });
+
+            res.status(200).json({ status: 'success', data: 'Email sent' });
+        } catch (err) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save();
+
+            return res.status(500).json({ message: 'Email could not be sent', error: err.message });
+        }
+    } catch (error) {
+        console.error('forgotPassword error:', error.message);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+// @desc    Reset Password
+// @route   PUT /api/auth/reset-password/:resettoken
+// @access  Public
+exports.resetPassword = async (req, res) => {
+    try {
+        // Get hashed token
+        const resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(req.params.resettoken)
+            .digest('hex');
+
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid or expired token' });
+        }
+
+        // Set new password
+        user.passwordHash = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save();
+
+        const token = generateToken(user._id);
+        sendTokenCookie(res, token, 200, {
+            status: 'success'
+        });
+    } catch (error) {
+        console.error('resetPassword error:', error.message);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+// @desc    Logout user / clear cookie
+// @route   POST /api/auth/logout
+// @access  Private
+exports.logout = async (req, res) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+    });
+
+    res.status(200).json({ success: true, message: 'User logged out' });
 };
