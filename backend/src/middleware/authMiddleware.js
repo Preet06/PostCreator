@@ -34,6 +34,8 @@ const protect = async (req, res, next) => {
             res.status(401).json({ message: 'Not authorized, token failed' });
         }
     } else {
+        console.log('No token found. Cookies:', req.cookies);
+        console.log('Headers:', req.headers.authorization);
         res.status(401).json({ message: 'Not authorized, no token' });
     }
 };

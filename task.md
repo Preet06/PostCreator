@@ -24,11 +24,13 @@
 - [x] **User Authentication (Frontend)** <!-- id: 18 -->
     - [x] Registration & Login Forms <!-- id: 19 -->
     - [x] Protected Routes & Session Persistence <!-- id: 20 -->
-- [ ] **Twitter OAuth Integration** <!-- id: 21 -->
-    - [ ] Register App on Twitter Developer Portal <!-- id: 22 -->
-    - [ ] Implement OAuth Connection Flow (Backend) <!-- id: 23 -->
-    - [ ] Store/Encrypt Tokens in Key Vault/Database <!-- id: 24 -->
-    - [ ] "Connect Twitter" UI Component <!-- id: 25 -->
+- [x] **Twitter OAuth Integration** <!-- id: 21 -->
+    - [x] Register App on Twitter Developer Portal <!-- id: 22 -->
+    - [x] Implement OAuth Connection Flow (Backend) <!-- id: 23 -->
+    - [x] Store Tokens in Database (User model) <!-- id: 24 -->
+    - [x] "Connect Twitter" UI Component (Dashboard) <!-- id: 25 -->
+    - [x] Test End-to-End Flow with Real Credentials
+    - [x] Implement Token Refresh Logic
 - [x] **Security Hardening** <!-- id: 26 -->
     - [x] Implement Helmet.js, CORS <!-- id: 27a -->
     - [x] CSP, HSTS configuration (via Helmet) <!-- id: 27b -->
@@ -42,9 +44,13 @@
 - [x] **Post Scheduling** <!-- id: 33 -->
     - [x] Backend: Update post API with date/timezone validation <!-- id: 34 -->
     - [x] UI: Scheduler component (Date/Time picker, Timezone selector) <!-- id: 35 -->
-- [ ] **Post Management Page** (List, Filter, Edit, Delete) <!-- id: 36 -->
-- [ ] **Dashboard** <!-- id: 37 -->
-    - [ ] Statistics Widgets (Total posts, success rate) <!-- id: 38 -->
+- [x] **Post Management** <!-- id: 36 -->
+    - [x] Edit Post Page (Content & Schedule updates)
+    - [x] Post List Page (Filter, Search, Bulk Actions)
+    - [x] Delete Post Functionality
+- [x] **Dashboard** <!-- id: 37 -->
+    - [x] Statistics Widgets (Total, Scheduled, Published, Failed) <!-- id: 38 -->
+    - [x] Recent Posts Table with Status Badges
     - [ ] Upcoming Posts List & Calendar View <!-- id: 39 -->
 
 ## Phase 4: Background Jobs (Azure WebJobs)

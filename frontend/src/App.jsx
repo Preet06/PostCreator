@@ -1,22 +1,22 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
+import Dashboard from './pages/Dashboard';
+import EditPost from './pages/EditPost';
+import PostList from './pages/PostList';
+import CalendarView from './pages/CalendarView';
+import ClearCookies from './pages/ClearCookies';
 
-const DashboardPlaceholder = () => {
-  const { logout, user } = useAuth();
-  return (
-    <div className="glass-card text-center">
-      <h1 className="text-3xl font-bold mb-4">Hello, {user?.name}!</h1>
-      <p className="text-muted mb-8">Welcome to your dashboard. We're building something great here.</p>
-      <button onClick={logout} className="btn-primary" style={{ background: '#ef4444' }}>
-        Logout
-      </button>
-    </div>
-  );
-};
+const Layout = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+  </>
+);
 
 function App() {
   return (
@@ -25,11 +25,14 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/clear-cookies" element={<ClearCookies />} />
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <DashboardPlaceholder />
+                <Layout>
+                  <Dashboard />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -37,7 +40,39 @@ function App() {
             path="/create-post"
             element={
               <ProtectedRoute>
-                <CreatePost />
+                <Layout>
+                  <CreatePost />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <PostList />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <CalendarView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edit-post/:id"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EditPost />
+                </Layout>
               </ProtectedRoute>
             }
           />
