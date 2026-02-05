@@ -55,11 +55,12 @@ exports.register = async (req, res) => {
 
         if (user) {
             const token = generateToken(user._id);
-            sendTokenCookie(res, token, 201, {
-                _id: user._id,
-                name: user.name,
-                email: user.email
-            });
+
+            // Return user without password
+            const userObj = user.toObject();
+            delete userObj.passwordHash;
+
+            sendTokenCookie(res, token, 201, userObj);
         }
     } catch (error) {
         console.error('Registration error:', error.message);
@@ -79,11 +80,12 @@ exports.login = async (req, res) => {
 
         if (user && (await user.comparePassword(password))) {
             const token = generateToken(user._id);
-            sendTokenCookie(res, token, 200, {
-                _id: user._id,
-                name: user.name,
-                email: user.email
-            });
+
+            // Return user without password
+            const userObj = user.toObject();
+            delete userObj.passwordHash;
+
+            sendTokenCookie(res, token, 200, userObj);
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }

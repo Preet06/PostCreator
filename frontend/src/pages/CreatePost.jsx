@@ -81,11 +81,11 @@ const CreatePost = () => {
     const isOverLimit = charCount > MAX_CHARS;
 
     return (
-        <div className="max-w-4xl mx-auto p-4 pb-20">
+        <div className="max-w-4xl mx-auto p-4 pb-20 page-enter-active">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass-card mb-8"
+                className="glass-card-elevated mb-8 hover-lift"
             >
                 <div className="flex items-center gap-2 mb-6 text-blue-500">
                     <Sparkles size={24} />
@@ -94,15 +94,33 @@ const CreatePost = () => {
 
                 <form onSubmit={handleGenerate}>
                     <div className="input-group">
-                        <label className="input-label font-medium">What's on your mind?</label>
+                        <label className="input-label font-medium flex items-center gap-2">
+                            <Sparkles className="text-blue-400" size={16} />
+                            What's on your mind?
+                        </label>
                         <textarea
-                            className="input-field min-h-[150px] resize-none"
+                            className="input-enhanced min-h-[150px] resize-none transition-enhanced"
                             placeholder="Type your post content here..."
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
-                        <div className={`text-right text-sm mt-2 font-mono ${isOverLimit ? 'text-red-500' : 'text-zinc-500'}`}>
-                            {charCount} / {MAX_CHARS}
+                        <div className={`text-right text-sm mt-2 font-mono p-2 rounded-lg transition-all ${
+                            isOverLimit ? 'text-red-500 bg-red-500/10' : 'text-zinc-500 bg-zinc-800/30'
+                        }`}>
+                            <span className={`inline-flex items-center gap-2 ${isOverLimit ? 'animate-pulse' : ''}`}>
+                                {isOverLimit && <AlertCircle size={14} />}
+                                {charCount} / {MAX_CHARS}
+                            </span>
+                            {!isOverLimit && charCount > 0 && (
+                                <div className="mt-1">
+                                    <div className="h-1 bg-zinc-700 rounded-full overflow-hidden">
+                                        <div 
+                                            className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full transition-all"
+                                            style={{ width: `${(charCount / MAX_CHARS) * 100}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -115,18 +133,23 @@ const CreatePost = () => {
 
                     <button
                         type="submit"
-                        className="btn-primary w-full md:w-auto"
+                        className="btn-elevated w-full md:w-auto transition-enhanced"
                         disabled={loading || !content.trim() || isOverLimit}
                     >
                         {loading ? (
                             <>
                                 <Loader2 className="animate-spin" size={20} />
-                                Analyzing & Generating...
+                                <span>Analyzing & Generating...</span>
+                                <div className="ml-2 flex gap-1">
+                                    <div className="w-1 h-1 bg-white rounded-full animate-pulse"></div>
+                                    <div className="w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                                    <div className="w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                                </div>
                             </>
                         ) : (
                             <>
                                 <Sparkles size={20} />
-                                Generate AI Variations
+                                <span>Generate AI Variations</span>
                             </>
                         )}
                     </button>
@@ -147,23 +170,23 @@ const CreatePost = () => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="flex flex-col md:flex-row gap-4 items-center justify-center bg-blue-500/5 p-6 rounded-2xl border border-blue-500/20"
+                                className="glass-card-elevated flex flex-col md:flex-row gap-4 items-center justify-center p-6 border-blue-500/20 hover-glow"
                             >
                                 <button
                                     onClick={handleSaveDraft}
-                                    className="btn-secondary w-full md:w-auto flex items-center justify-center gap-2"
+                                    className="btn-secondary hover-lift flex items-center justify-center gap-2"
                                     disabled={loading}
                                 >
                                     <Send size={18} />
-                                    Save as Draft
+                                    <span>Save as Draft</span>
                                 </button>
                                 <button
                                     onClick={() => setShowScheduler(true)}
-                                    className="btn-primary w-full md:w-auto flex items-center justify-center gap-2 px-8"
+                                    className="btn-elevated hover-lift flex items-center justify-center gap-2 px-8"
                                     disabled={loading}
                                 >
                                     <Calendar size={18} />
-                                    Schedule Post
+                                    <span>Schedule Post</span>
                                 </button>
                             </motion.div>
                         )}
@@ -184,10 +207,15 @@ const CreatePost = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center justify-center gap-2 text-green-500 mt-8 font-semibold text-lg"
+                    className="glass-card-elevated flex items-center justify-center gap-3 text-green-400 mt-8 font-semibold text-lg p-6 bg-green-500/10 border-green-500/20 animate-glow"
                 >
-                    <CheckCircle2 size={24} />
-                    Post successfully {showScheduler ? 'scheduled' : 'saved to drafts'}!
+                    <CheckCircle2 size={24} className="animate-pulse" />
+                    <span>Post successfully {showScheduler ? 'scheduled' : 'saved to drafts'}!</span>
+                    <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
                 </motion.div>
             )}
         </div>
