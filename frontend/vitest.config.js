@@ -7,6 +7,10 @@ export default defineConfig({
         environment: 'jsdom',
         globals: true,
         setupFiles: './src/test/setup.js',
+        pool: 'threads',
+        poolMatchGlobs: [
+            ['**/*.test.{js,jsx}', 'threads']
+        ],
         exclude: ['**/node_modules/**', '**/dist/**'],
         coverage: {
             provider: 'v8',
@@ -14,10 +18,15 @@ export default defineConfig({
             include: ['src/**/*.{js,jsx}'],
             exclude: ['src/main.jsx', 'src/test/**', 'src/api/**', '**/node_modules/**'],
         },
-    },
-    server: {
         deps: {
-            inline: ['framer-motion']
+            optimizer: {
+                web: {
+                    include: ['framer-motion', 'lucide-react']
+                }
+            }
         }
+    },
+    resolve: {
+        conditions: ['browser', 'module', 'import', 'default']
     }
 });
