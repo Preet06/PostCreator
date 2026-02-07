@@ -5,8 +5,11 @@ import { MemoryRouter } from 'react-router-dom';
 import API from '../api/axios';
 
 jest.mock('../api/axios', () => ({
+    __esModule: true,
     default: {
         get: jest.fn(),
+        post: jest.fn(),
+        put: jest.fn(),
         delete: jest.fn()
     }
 }));
@@ -21,11 +24,13 @@ const renderPostList = () => {
 
 describe('PostList', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        // Reset mock call history but keep implementation
+        API.get.mockClear();
+        API.delete.mockClear();
     });
 
     it('renders post list and fetches data', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: {
                 success: true,
                 data: [{ _id: '1', content: 'Test Post', status: 'draft', createdAt: new Date() }],

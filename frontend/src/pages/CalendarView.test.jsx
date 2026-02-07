@@ -5,8 +5,12 @@ import { MemoryRouter } from 'react-router-dom';
 import API from '../api/axios';
 
 jest.mock('../api/axios', () => ({
+    __esModule: true,
     default: {
-        get: jest.fn()
+        get: jest.fn(),
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn()
     }
 }));
 
@@ -26,7 +30,7 @@ describe('CalendarView', () => {
     });
 
     it('renders calendar header', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [] }
         });
 

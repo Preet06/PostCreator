@@ -6,9 +6,12 @@ import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 jest.mock('../api/axios', () => ({
+    __esModule: true,
     default: {
         get: jest.fn(),
-        post: jest.fn()
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn()
     }
 }));
 
@@ -27,6 +30,9 @@ const renderDashboard = () => {
 describe('Dashboard', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        // Ensure mocks are available
+        API.get.mockImplementation(() => Promise.resolve({ data: {} }));
+        API.post.mockImplementation(() => Promise.resolve({ data: {} }));
         useAuth.mockReturnValue({
             user: { name: 'Test User', twitterTokens: { accessToken: 'token' } },
             loading: false
@@ -34,7 +40,7 @@ describe('Dashboard', () => {
     });
 
     it('renders dashboard with stats', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [] }
         });
 
@@ -47,7 +53,7 @@ describe('Dashboard', () => {
     });
 
     it('shows empty state', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [] }
         });
 
@@ -62,7 +68,7 @@ describe('Dashboard', () => {
         const mockPosts = [
             { _id: '1', content: 'Post One Content', status: 'published', createdAt: new Date() }
         ];
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: mockPosts }
         });
 

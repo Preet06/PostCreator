@@ -5,8 +5,10 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import API from '../api/axios';
 
 jest.mock('../api/axios', () => ({
+    __esModule: true,
     default: {
         get: jest.fn(),
+        post: jest.fn(),
         put: jest.fn(),
         delete: jest.fn()
     }
@@ -32,10 +34,14 @@ const renderEditPost = (id = '123') => {
 describe('EditPost', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        // Ensure mocks are available
+        API.get.mockImplementation(() => Promise.resolve({ data: {} }));
+        API.put.mockImplementation(() => Promise.resolve({ data: {} }));
+        API.delete.mockImplementation(() => Promise.resolve({ data: {} }));
     });
 
     it('loads and displays post data', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [mockPost] }
         });
 
@@ -47,10 +53,10 @@ describe('EditPost', () => {
     });
 
     it('updates post successfully', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [mockPost] }
         });
-        API.put.mockResolvedValueOnce({ data: { success: true } });
+        API.put.mockResolvedValue({ data: { success: true } });
 
         renderEditPost();
 
@@ -69,7 +75,7 @@ describe('EditPost', () => {
     });
 
     it('handles delete flow', async () => {
-        API.get.mockResolvedValueOnce({
+        API.get.mockResolvedValue({
             data: { success: true, data: [mockPost] }
         });
 
@@ -80,7 +86,7 @@ describe('EditPost', () => {
         fireEvent.click(screen.getByTitle(/delete post/i));
         expect(screen.getByText(/are you sure you want to delete this post/i)).toBeInTheDocument();
 
-        API.delete.mockResolvedValueOnce({ data: { success: true } });
+        API.delete.mockResolvedValue({ data: { success: true } });
         fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
         await waitFor(() => {

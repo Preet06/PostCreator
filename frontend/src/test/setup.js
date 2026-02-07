@@ -5,15 +5,19 @@ import { TextEncoder, TextDecoder } from 'util';
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// Mock framer-motion to avoid ESM issues
-jest.mock('framer-motion', () => ({
-    motion: new Proxy({}, {
-        get: () => {
-            return ({ children, ...props }) => children;
-        }
-    }),
-    AnimatePresence: ({ children }) => children,
-}));
+// Mock framer-motion to avoid ESM issues and ensure roles are preserved
+jest.mock('framer-motion', () => {
+    const React = require('react');
+    return {
+        motion: new Proxy({}, {
+            get: (target, prop) => {
+                // Return a functional component that renders the actual tag
+                return ({ children, ...props }) => React.createElement(prop, props, children);
+            }
+        }),
+        AnimatePresence: ({ children }) => children,
+    };
+});
 
 // Mock Lucide icons as they can be tricky in tests
 jest.mock('lucide-react', () => {
