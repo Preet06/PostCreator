@@ -51,7 +51,9 @@ jobs:
       run: npm ci
       
     - name: Run tests
-      run: npm test -- --run
+      run: npm test -- --run --reporter=verbose
+      env:
+        CI: true
       
     - name: Run build
       run: npm run build
