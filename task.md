@@ -88,8 +88,8 @@
     - [ ] OWASP ZAP Security Scan <!-- id: 62 -->
 
 ## Phase 7: CI/CD & Deployment
-- [ ] **Pipelines** <!-- id: 63 -->
-    - [ ] GitHub Actions for Build & Test <!-- id: 64 -->
+- [x] **Pipelines** <!-- id: 63 -->
+    - [x] GitHub Actions for Build & Test <!-- id: 64 -->
     - [ ] Deployment Pipelines (Staging, Prod) <!-- id: 65 -->
 - [ ] **Documentation** <!-- id: 66 -->
     - [ ] API Documentation (Swagger) <!-- id: 67 -->
