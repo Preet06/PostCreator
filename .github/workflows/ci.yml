@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "feature/phase3-content-management-2026-02-03" ]
   pull_request:
     branches: [ "main", "develop" ]
 
