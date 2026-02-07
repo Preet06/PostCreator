@@ -7,11 +7,17 @@ export default defineConfig({
         environment: 'jsdom',
         globals: true,
         setupFiles: './src/test/setup.js',
+        exclude: ['**/node_modules/**', '**/dist/**'],
         coverage: {
             provider: 'v8',
             reporter: ['text', 'json', 'html'],
             include: ['src/**/*.{js,jsx}'],
-            exclude: ['src/main.jsx', 'src/test/**', 'src/api/**'],
+            exclude: ['src/main.jsx', 'src/test/**', 'src/api/**', '**/node_modules/**'],
         },
     },
+    server: {
+        deps: {
+            inline: ['framer-motion']
+        }
+    }
 });

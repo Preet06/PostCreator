@@ -1,5 +1,18 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+import React from 'react';
+
+// Mock framer-motion to avoid ESM issues
+vi.mock('framer-motion', () => ({
+    motion: new Proxy({}, {
+        get: (target, prop) => {
+            return React.forwardRef(({ children, ...props }, ref) =>
+                React.createElement(prop, { ...props, ref }, children)
+            );
+        }
+    }),
+    AnimatePresence: ({ children }) => children,
+}));
 
 // Mock Lucide icons as they can be tricky in tests
 vi.mock('lucide-react', async () => {
