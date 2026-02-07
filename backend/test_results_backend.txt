@@ -1,0 +1,387 @@
+
+> postcreator-backend@1.0.0 test
+> jest --coverage
+
+  console.log
+    Message sent: test-id
+
+      at log (src/utils/emailService.js:37:13)
+
+PASS tests/utils/emailService.test.js
+  emailService
+    √ should send an email successfully (117 ms)
+    √ should handle email sending failure (18 ms)
+
+  console.error
+    Groq Generation Error: Groq API Error
+
+    [0m [90m 41 |[39m         [36mreturn[39m response[33m;[39m
+     [90m 42 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 43 |[39m         console[33m.[39merror([32m'Groq Generation Error:'[39m[33m,[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 44 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to generate variations: '[39m [33m+[39m error[33m.[39mmessage)[33m;[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m }[33m;[39m[0m
+
+      at Object.error [as generatePostVariations] (src/services/generationService.js:43:17)
+      at Object.<anonymous> (tests/services/generationService.test.js:56:9)
+
+  console.error
+    Groq Generation Error: Unexpected token 'I', "Invalid JSON" is not valid JSON
+
+    [0m [90m 41 |[39m         [36mreturn[39m response[33m;[39m
+     [90m 42 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 43 |[39m         console[33m.[39merror([32m'Groq Generation Error:'[39m[33m,[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 44 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to generate variations: '[39m [33m+[39m error[33m.[39mmessage)[33m;[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m }[33m;[39m[0m
+
+      at Object.error [as generatePostVariations] (src/services/generationService.js:43:17)
+      at Object.<anonymous> (tests/services/generationService.test.js:73:9)
+
+(node:19812) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/services/generationService.test.js
+  GenerationService
+    √ should generate variations successfully (29 ms)
+    √ should throw error if Groq fails (151 ms)
+    √ should throw error if response is not valid JSON (11 ms)
+
+  console.warn
+    [Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.
+
+    [0m [90m 10 |[39m
+     [90m 11 |[39m     [36mif[39m ([33m![39mconnectionString) {
+    [31m[1m>[22m[39m[90m 12 |[39m         console[33m.[39mwarn([32m'[Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.'[39m)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 13 |[39m         [36mreturn[39m[33m;[39m
+     [90m 14 |[39m     }
+     [90m 15 |[39m[0m
+
+      at warn (src/config/appInsights.js:12:17)
+      at Object.initAppInsights (src/app.js:3:1)
+      at Object.require (tests/integration/auth.test.js:2:13)
+
+  console.warn
+    [Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.
+
+    [0m [90m 10 |[39m
+     [90m 11 |[39m     [36mif[39m ([33m![39mconnectionString) {
+    [31m[1m>[22m[39m[90m 12 |[39m         console[33m.[39mwarn([32m'[Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.'[39m)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 13 |[39m         [36mreturn[39m[33m;[39m
+     [90m 14 |[39m     }
+     [90m 15 |[39m[0m
+
+      at warn (src/config/appInsights.js:12:17)
+      at Object.initAppInsights (src/app.js:3:1)
+      at Object.require (tests/integration/posts.test.js:2:13)
+
+  console.warn
+    [Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.
+
+    [0m [90m 10 |[39m
+     [90m 11 |[39m     [36mif[39m ([33m![39mconnectionString) {
+    [31m[1m>[22m[39m[90m 12 |[39m         console[33m.[39mwarn([32m'[Monitoring] APPLICATIONINSIGHTS_CONNECTION_STRING not found. Telemetry disabled.'[39m)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 13 |[39m         [36mreturn[39m[33m;[39m
+     [90m 14 |[39m     }
+     [90m 15 |[39m[0m
+
+      at warn (src/config/appInsights.js:12:17)
+      at Object.initAppInsights (src/app.js:3:1)
+      at Object.require (tests/integration/twitter.test.js:2:13)
+
+  console.log
+    [TwitterService] Tweet published for user user123: tweet789
+
+      at Object.log [as publishTweet] (src/services/twitterPublishService.js:25:17)
+
+  console.error
+    [TwitterService] Publish Error: { errors: [ { message: 'Internal Server Error', code: 999 } ] }
+
+    [0m [90m 26 |[39m         [36mreturn[39m response[33m.[39mdata[33m.[39mdata[33m.[39mid[33m;[39m
+     [90m 27 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 28 |[39m         console[33m.[39merror([32m'[TwitterService] Publish Error:'[39m[33m,[39m error[33m.[39mresponse[33m?[39m[33m.[39mdata [33m||[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 29 |[39m
+     [90m 30 |[39m         [36mlet[39m errorMessage [33m=[39m [32m'Twitter API call failed'[39m[33m;[39m
+     [90m 31 |[39m         [36mlet[39m isRecoverable [33m=[39m [36mtrue[39m[33m;[39m[0m
+
+      at Object.error [as publishTweet] (src/services/twitterPublishService.js:28:17)
+      at Object.<anonymous> (tests/services/twitterPublishService.test.js:54:13)
+
+  console.error
+    [TwitterService] Publish Error: { errors: [ { message: 'Duplicate tweet', code: 187 } ] }
+
+    [0m [90m 26 |[39m         [36mreturn[39m response[33m.[39mdata[33m.[39mdata[33m.[39mid[33m;[39m
+     [90m 27 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 28 |[39m         console[33m.[39merror([32m'[TwitterService] Publish Error:'[39m[33m,[39m error[33m.[39mresponse[33m?[39m[33m.[39mdata [33m||[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 29 |[39m
+     [90m 30 |[39m         [36mlet[39m errorMessage [33m=[39m [32m'Twitter API call failed'[39m[33m;[39m
+     [90m 31 |[39m         [36mlet[39m isRecoverable [33m=[39m [36mtrue[39m[33m;[39m[0m
+
+      at Object.error [as publishTweet] (src/services/twitterPublishService.js:28:17)
+      at Object.<anonymous> (tests/services/twitterPublishService.test.js:73:13)
+
+  console.error
+    [TwitterService] Publish Error: undefined
+
+    [0m [90m 26 |[39m         [36mreturn[39m response[33m.[39mdata[33m.[39mdata[33m.[39mid[33m;[39m
+     [90m 27 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 28 |[39m         console[33m.[39merror([32m'[TwitterService] Publish Error:'[39m[33m,[39m error[33m.[39mresponse[33m?[39m[33m.[39mdata [33m||[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 29 |[39m
+     [90m 30 |[39m         [36mlet[39m errorMessage [33m=[39m [32m'Twitter API call failed'[39m[33m;[39m
+     [90m 31 |[39m         [36mlet[39m isRecoverable [33m=[39m [36mtrue[39m[33m;[39m[0m
+
+      at Object.error [as publishTweet] (src/services/twitterPublishService.js:28:17)
+      at Object.<anonymous> (tests/services/twitterPublishService.test.js:89:13)
+
+PASS tests/services/twitterPublishService.test.js
+  TwitterPublishService
+    √ should publish a tweet successfully (152 ms)
+    √ should handle recoverable twitter errors (20 ms)
+    √ should handle non-recoverable duplicate tweet error (9 ms)
+    √ should handle unauthorized error as non-recoverable (6 ms)
+
+  console.log
+    No token found. Cookies: {}
+
+      at log (src/middleware/authMiddleware.js:37:17)
+
+  console.log
+    Headers: undefined
+
+      at log (src/middleware/authMiddleware.js:38:17)
+
+  console.error
+    Auth Middleware Error: Invalid token
+
+    [0m [90m 31 |[39m             next()[33m;[39m
+     [90m 32 |[39m         } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 33 |[39m             console[33m.[39merror([32m'Auth Middleware Error:'[39m[33m,[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                     [31m[1m^[22m[39m
+     [90m 34 |[39m             res[33m.[39mstatus([35m401[39m)[33m.[39mjson({ message[33m:[39m [32m'Not authorized, token failed'[39m })[33m;[39m
+     [90m 35 |[39m         }
+     [90m 36 |[39m     } [36melse[39m {[0m
+
+      at error (src/middleware/authMiddleware.js:33:21)
+      at Object.protect (tests/middleware/authMiddleware.test.js:62:15)
+
+  console.log
+    Twitter tokens refreshed for user user123
+
+      at Object.log [as refreshTwitterToken] (src/services/twitterTokenService.js:55:17)
+
+PASS tests/middleware/authMiddleware.test.js
+  AuthMiddleware
+    √ should call next if token is valid (cookie) (30 ms)
+    √ should call next if token is valid (header) (1 ms)
+    √ should return 401 if no token found (91 ms)
+    √ should return 401 if token verification fails (11 ms)
+    √ should return 401 if user not found in database (2 ms)
+
+  console.error
+    Token refresh error: No refresh token available
+
+    [0m [90m 61 |[39m         }[33m;[39m
+     [90m 62 |[39m     } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 63 |[39m         console[33m.[39merror([32m'Token refresh error:'[39m[33m,[39m error[33m.[39mresponse[33m?[39m[33m.[39mdata [33m||[39m error[33m.[39mmessage)[33m;[39m
+     [90m    |[39m                 [31m[1m^[22m[39m
+     [90m 64 |[39m         [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to refresh Twitter token'[39m)[33m;[39m
+     [90m 65 |[39m     }
+     [90m 66 |[39m }[33m;[39m[0m
+
+      at Object.error [as refreshTwitterToken] (src/services/twitterTokenService.js:63:17)
+      at Object.<anonymous> (tests/services/twitterTokenService.test.js:68:13)
+
+  console.log
+    Token expired for user user123, refreshing...
+
+      at Object.log [as ensureValidToken] (src/services/twitterTokenService.js:83:21)
+
+  console.log
+    Twitter tokens refreshed for user user123
+
+      at log (src/services/twitterTokenService.js:55:17)
+
+PASS tests/services/twitterTokenService.test.js
+  TwitterTokenService
+    isTokenExpired
+      √ should return true if expiresAt is missing (25 ms)
+      √ should return true if token expires in less than 5 minutes (1 ms)
+      √ should return false if token is valid for more than 5 minutes (1 ms)
+    refreshTwitterToken
+      √ should refresh token and update user (89 ms)
+      √ should throw error if user or refresh token is missing (60 ms)
+    ensureValidToken
+      √ should return existing token if not expired (2 ms)
+      √ should refresh token if expired (11 ms)
+
+(node:41560) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:41800) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:11232) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/controllers/postController.test.js (8.71 s)
+  postController
+    POST /api/posts/generate
+      √ should generate variations successfully (341 ms)
+      √ should return 400 if content too long (29 ms)
+    POST /api/posts
+      √ should create a new post and enqueue a job if scheduled (83 ms)
+      √ should create a draft WITHOUT enqueuing a job (45 ms)
+      √ should return 400 if scheduled time in past (38 ms)
+    GET /api/posts
+      √ should get posts with search/filter (60 ms)
+    PUT /api/posts/:id
+      √ should update post and queue (66 ms)
+      √ should return 401 if not owner (31 ms)
+      √ should return 404 for missing post (26 ms)
+    DELETE /api/posts/:id
+      √ should delete post (47 ms)
+      √ should return 401 if not owner (28 ms)
+    GET /api/posts/calendar
+      √ should return grouped posts (35 ms)
+    DELETE /api/posts/bulk
+      √ should delete multiple (37 ms)
+      √ should return 400 for invalid ids (17 ms)
+
+  console.log
+    Generated Twitter Auth URL: https://twitter.com/i/oauth2/authorize?response_type=code&client_id=test-client-id&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fapi%2Ftwitter%2Fcallback&scope=tweet.read+tweet.write+users.read+offline.access&state=e04111467a55ac5edff2348c352d5e33&code_challenge=LcoXAv1h4N1HlNXDIGQTJotxaG7Ada4F_WQZ7LxPvkE&code_challenge_method=S256
+
+      at log (src/controllers/twitterController.js:39:17)
+
+  console.log
+    Generated Twitter Auth URL: https://twitter.com/i/oauth2/authorize?response_type=code&client_id=test-client-id&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fapi%2Ftwitter%2Fcallback&scope=tweet.read+tweet.write+users.read+offline.access&state=6a28612c9f8d64208d00d95dd1cc11e5&code_challenge=n0lc2My--ykYOIeiscm05WpwdMpR1QivXqOXu7HMUPw&code_challenge_method=S256
+
+      at log (src/controllers/twitterController.js:39:17)
+
+  console.log
+    No token found. Cookies: [Object: null prototype] {}
+
+      at log (src/middleware/authMiddleware.js:37:17)
+
+  console.log
+    Headers: undefined
+
+      at log (src/middleware/authMiddleware.js:38:17)
+
+PASS tests/integration/twitter.test.js (14.691 s)
+  Twitter API Integration Tests
+    GET /api/twitter/connect
+      √ should return a valid Twitter OAuth URL and set cookies (1200 ms)
+    GET /api/twitter/callback
+      √ should handle callback and store tokens (528 ms)
+
+PASS tests/integration/posts.test.js (15.758 s)
+  Post API Integration Tests
+    POST /api/posts
+      √ should create a new post successfully (1260 ms)
+      √ should return 400 for invalid content (383 ms)
+    PUT /api/posts/:id
+      √ should update a post successfully (823 ms)
+      √ should return 404 for non-existent post (390 ms)
+    DELETE /api/posts/:id
+      √ should delete a post (554 ms)
+    POST /api/posts/generate
+      √ should generate variations successfully (413 ms)
+    GET /api/posts/calendar
+      √ should fetch posts for a specific month (773 ms)
+    GET /api/posts
+      √ should fetch all posts for the authenticated user (517 ms)
+    DELETE /api/posts/bulk
+      √ should delete multiple posts (401 ms)
+
+  console.log
+    Message sent: <7a43e7ed-6da6-1390-806d-ea2856031388@postcreator.com>
+
+      at log (src/utils/emailService.js:37:13)
+
+  console.log
+    Preview URL: https://ethereal.email/message/aYX5hXeSH3GjwowiaYX5iUSUF0ht5olAAAAAAZuqdGDDh4r5hRn.cxB9EvQ
+
+      at log (src/utils/emailService.js:39:17)
+
+FAIL tests/integration/auth.test.js (20.757 s)
+  Auth API Integration Tests
+    POST /api/auth/register
+      √ should register a new user successfully (758 ms)
+      √ should return 400 if user already exists (290 ms)
+      √ should return 400 if required fields are missing (28 ms)
+    POST /api/auth/login
+      √ should login successfully with correct credentials (358 ms)
+      √ should fail with incorrect password (491 ms)
+    GET /api/auth/me
+      √ should fetch user profile with valid cookie (428 ms)
+      √ should return 401 without cookie (461 ms)
+    Password Reset Flow
+      × should send a reset email if user exists (6102 ms)
+      √ should return 404 if user not found for forgot password (182 ms)
+      √ should reset password with valid token (497 ms)
+      √ should return 400 for invalid or expired token (266 ms)
+    POST /api/auth/logout
+      √ should logout and clear cookie (368 ms)
+
+  ● Auth API Integration Tests › Password Reset Flow › should send a reset email if user exists
+
+    expect(received).toBeGreaterThan(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has type:  date
+    Received has value: 2026-02-06T15:24:01.310Z
+
+    [0m [90m 126 |[39m             [36mconst[39m user [33m=[39m [36mawait[39m [33mUser[39m[33m.[39mfindOne({ email[33m:[39m mockUser[33m.[39memail })[33m;[39m
+     [90m 127 |[39m             expect(user[33m.[39mresetPasswordToken)[33m.[39mtoBeDefined()[33m;[39m
+    [31m[1m>[22m[39m[90m 128 |[39m             expect(user[33m.[39mresetPasswordExpire)[33m.[39mtoBeGreaterThan([33mDate[39m[33m.[39mnow())[33m;[39m
+     [90m     |[39m                                              [31m[1m^[22m[39m
+     [90m 129 |[39m         }[33m,[39m [35m15000[39m)[33m;[39m
+     [90m 130 |[39m
+     [90m 131 |[39m         it([32m'should return 404 if user not found for forgot password'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.toBeGreaterThan (tests/integration/auth.test.js:128:46)
+
+---------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------
+File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                        
+---------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------
+All files                  |   85.68 |    79.87 |   90.24 |   85.65 |                                                                          
+ src                       |   95.83 |      100 |       0 |   95.83 |                                                                          
+  app.js                   |   95.83 |      100 |       0 |   95.83 | 33                                                                       
+ src/config                |   63.63 |       50 |     100 |   63.63 |                                                                          
+  appInsights.js           |   63.63 |       50 |     100 |   63.63 | 16-28                                                                    
+ src/controllers           |   80.26 |       80 |      95 |   80.26 |                                                                          
+  authController.js        |   81.01 |    88.23 |     100 |   81.01 | 40,66-67,93-94,105-106,150-158,194-195                                   
+  postController.js        |    81.3 |    80.64 |     100 |    81.3 | 13,27-28,40,46,74-75,100,129-130,142,160-161,221-222,234,267-268,295-296 
+  twitterController.js     |   76.19 |       50 |      75 |   76.19 | 42-43,56,121-122,130-147                                                 
+ src/middleware            |   74.54 |    58.33 |   85.71 |   74.54 |                                                                          
+  authMiddleware.js        |     100 |      100 |     100 |     100 |                                                                          
+  securityMiddleware.js    |     100 |      100 |     100 |     100 |                                                                          
+  twitterAuthMiddleware.js |   17.64 |        0 |       0 |   17.64 | 9-46                                                                     
+  validator.js             |     100 |      100 |     100 |     100 |                                                                          
+ src/models                |   96.29 |      100 |     100 |   96.29 |                                                                          
+  JobQueue.js              |     100 |      100 |     100 |     100 |                                                                          
+  Post.js                  |     100 |      100 |     100 |     100 |                                                                          
+  User.js                  |   93.33 |      100 |     100 |   93.33 | 50                                                                       
+ src/routes                |   97.43 |      100 |       0 |   97.43 |                                                                          
+  authRoutes.js            |     100 |      100 |     100 |     100 |                                                                          
+  postRoutes.js            |     100 |      100 |     100 |     100 |                                                                          
+  twitterRoutes.js         |    90.9 |      100 |       0 |    90.9 | 13                                                                       
+ src/services              |   95.77 |    92.85 |     100 |   95.71 |                                                                          
+  generationService.js     |     100 |      100 |     100 |     100 |                                                                          
+  twitterPublishService.js |     100 |     87.5 |     100 |     100 | 42                                                                       
+  twitterTokenService.js   |   91.66 |       95 |     100 |   91.42 | 78,90-91                                                                 
+ src/utils                 |     100 |    88.88 |     100 |     100 |                                                                          
+  emailService.js          |     100 |    88.88 |     100 |     100 | 12                                                                       
+ tests/integration         |     100 |      100 |     100 |     100 |                                                                          
+  setup.js                 |     100 |      100 |     100 |     100 |                                                                          
+---------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------
+Test Suites: 1 failed, 8 passed, 9 total
+Tests:       1 failed, 57 passed, 58 total
+Snapshots:   0 total
+Time:        21.761 s, estimated 24 s
+Ran all test suites.

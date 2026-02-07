@@ -27,6 +27,13 @@ const postSchema = new mongoose.Schema({
     twitterId: {
         type: String, // ID returned from Twitter after posting
     },
+    attempts: {
+        type: Number,
+        default: 0,
+    },
+    lastAttempt: {
+        type: Date,
+    },
     error: {
         type: String, // Reason for failure if any
     }

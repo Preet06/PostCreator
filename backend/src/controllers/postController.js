@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const JobQueue = require('../models/JobQueue');
 const generationService = require('../services/generationService');
 
 // @desc    Generate post variations using AI
@@ -56,6 +57,15 @@ exports.createPost = async (req, res) => {
             status: status || 'draft'
         });
 
+        // Enqueue if scheduled
+        if (post.status === 'scheduled') {
+            await JobQueue.create({
+                postId: post._id,
+                partitionKey: post.scheduledAt.toISOString().slice(0, 16),
+                status: 'pending'
+            });
+        }
+
         res.status(201).json({
             success: true,
             data: post
@@ -97,6 +107,20 @@ exports.updatePost = async (req, res) => {
             { new: true, runValidators: true }
         );
 
+        // Update Queue
+        if (post.status === 'scheduled') {
+            // Upsert queue entry
+            const partitionKey = post.scheduledAt.toISOString().slice(0, 16);
+            await JobQueue.findOneAndUpdate(
+                { postId: post._id },
+                { partitionKey, status: 'pending', lockedUntil: null },
+                { upsert: true }
+            );
+        } else {
+            // Remove from queue if it was scheduled but now is draft/failed/published
+            await JobQueue.deleteOne({ postId: post._id });
+        }
+
         res.status(200).json({
             success: true,
             data: post
@@ -124,6 +148,9 @@ exports.deletePost = async (req, res) => {
         }
 
         await post.deleteOne();
+
+        // Remove from queue
+        await JobQueue.deleteOne({ postId: req.params.id });
 
         res.status(200).json({
             success: true,

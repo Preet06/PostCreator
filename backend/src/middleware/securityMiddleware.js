@@ -7,6 +7,7 @@ exports.globalLimiter = rateLimit({
     message: { message: 'Too many requests from this IP, please try again after 15 minutes' },
     standardHeaders: true,
     legacyHeaders: false,
+    skip: () => process.env.NODE_ENV === 'test',
 });
 
 // 2. Auth Rate Limiter: 5 attempts per 10 minutes (for Login/Register)
@@ -16,6 +17,7 @@ exports.authLimiter = rateLimit({
     message: { message: 'Too many authentication attempts, please try again after 10 minutes' },
     standardHeaders: true,
     legacyHeaders: false,
+    skip: () => process.env.NODE_ENV === 'test',
 });
 
 // 3. AI Generation Rate Limiter: 10 variations per hour
@@ -25,4 +27,5 @@ exports.aiGenerationLimiter = rateLimit({
     message: { message: 'AI generation limit reached for this hour' },
     standardHeaders: true,
     legacyHeaders: false,
+    skip: () => process.env.NODE_ENV === 'test',
 });

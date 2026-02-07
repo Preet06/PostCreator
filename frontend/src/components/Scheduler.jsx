@@ -53,10 +53,11 @@ const Scheduler = ({ onSchedule, onCancel, initialDate }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="input-group">
-                    <label className="input-label flex items-center gap-2">
+                    <label htmlFor="date-input" className="input-label flex items-center gap-2">
                         <Calendar size={14} /> Date
                     </label>
                     <input
+                        id="date-input"
                         type="date"
                         className="input-field"
                         value={date}
@@ -65,10 +66,11 @@ const Scheduler = ({ onSchedule, onCancel, initialDate }) => {
                     />
                 </div>
                 <div className="input-group">
-                    <label className="input-label flex items-center gap-2">
+                    <label htmlFor="time-input" className="input-label flex items-center gap-2">
                         <Clock size={14} /> Time
                     </label>
                     <input
+                        id="time-input"
                         type="time"
                         className="input-field"
                         value={time}

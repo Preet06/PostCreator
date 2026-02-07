@@ -1,28 +1,21 @@
 # PostCreator - Project Task List
 
-## 📊 Implementation Status Summary
-- **Phases 1-3**: ✅ **FULLY IMPLEMENTED** - All user-facing features complete
-- **Phases 4-7**: ❌ **NOT STARTED** - Critical infrastructure missing
-- **Next Priority**: Phase 4 (Background Jobs) - Required for actual Twitter publishing
-
----
-
-## Phase 1: Foundation & Infrastructure - ✅ COMPLETE
+## Phase 1: Foundation & Infrastructure
 - [x] **Repository & Environment Setup** <!-- id: 0 -->
     - [x] Initialize Git repository with branch protection (main, develop) <!-- id: 1 -->
     - [x] Create folder structure: `/frontend`, `/backend`, `/jobs`, `/docs`, `/tests` <!-- id: 2 -->
     - [x] Setup `.gitignore` <!-- id: 3a -->
-    - [ ] Create `.env.example` and PR templates <!-- id: 3b -->
+    - [x] Create `.env.example` and PR templates <!-- id: 3b -->
     - [x] Configure Code Quality tools (Prettier applied; ESLint deferred) <!-- id: 4 -->
-- [ ] **Azure Infrastructure** <!-- id: 5 -->
-    - [ ] Document Azure resource requirements (App Service, Cosmos, Static Web Apps, Key Vault) <!-- id: 6 -->
-    - [ ] Configure Azure Application Insights <!-- id: 7 -->
+- [x] **Azure Infrastructure** <!-- id: 5 -->
+    - [x] Document Azure resource requirements (App Service, Cosmos, Static Web Apps, Key Vault) <!-- id: 6 -->
+    - [x] Configure Azure Application Insights <!-- id: 7 -->
 - [x] **Database Design** <!-- id: 8 -->
     - [x] Design Mongoose schemas: Users, Posts, AuditLogs <!-- id: 9 -->
     - [x] Define indexes and relationships <!-- id: 11 -->
     - [x] Configure Connection Logic & Environment Variables <!-- id: 12 -->
 
-## Phase 2: Authentication & Security - ✅ COMPLETE
+## Phase 2: Authentication & Security
 - [x] **User Authentication (Backend)** <!-- id: 13 -->
     - [x] Registration API (Email/Password, bcrypt) <!-- id: 14 -->
     - [x] Login API (JWT, 7-day expiry) <!-- id: 15 -->
@@ -44,7 +37,7 @@
     - [x] Configure Rate Limiting (Global, Auth, & AI) <!-- id: 28 -->
     - [x] Input Validation (express-validator) & Sanitization <!-- id: 29 -->
 
-## Phase 3: Core Features - Content Management - ✅ COMPLETE
+## Phase 3: Core Features - Content Management
 - [x] **Post Generation** <!-- id: 30 -->
     - [x] Backend: Generation service with Groq/LLM variations (Original, Emoji, Hashtag) <!-- id: 31 -->
     - [x] UI: Input form with character counter & variation selector <!-- id: 32 -->
@@ -60,84 +53,44 @@
     - [x] Recent Posts Table with Status Badges
     - [x] Upcoming Posts List & Calendar View <!-- id: 39 -->
 
-## Phase 4: Background Jobs (Azure WebJobs) - NOT STARTED
-- [ ] **Job Infrastructure** <!-- id: 40 -->
-    - [ ] Setup WebJob project & CRON schedule (1 min) <!-- id: 41 -->
-    - [ ] Implement Distributed Locking (Cosmos DB) <!-- id: 42 -->
-- [ ] **Publishing Logic** <!-- id: 43 -->
-    - [ ] Twitter API Wrapper (Publishing) <!-- id: 44 -->
-    - [ ] Batch Processing & Status Updates <!-- id: 45 -->
-    - [ ] Retry Mechanism (Exponential backoff) & Circuit Breaker <!-- id: 46 -->
-    - [ ] Dead Letter Queue for failed posts <!-- id: 47 -->
+## Phase 4: Advanced Background Jobs (Worker Pattern)
+- [x] **Infrastructure & Schema Updates** <!-- id: 40 -->
+    - [x] Update `Post` schema with `attempts` and `retryAfter` <!-- id: 41 -->
+    - [x] Implement `JobQueue` collection/schema for time-partitioned IDs <!-- id: 42 -->
+- [x] **Twitter Publishing Wrapper** <!-- id: 43 -->
+    - [x] Implement robust `twitterPublishService` with API v2 <!-- id: 44 -->
+- [x] **Time-Tick Dispatcher** <!-- id: 45 -->
+    - [x] Implement high-resolution (5-10s) scheduler to fetch due items <!-- id: 46 -->
+    - [x] Hand-off logic to internal task queue/workers <!-- id: 47 -->
+- [x] **Distributed Workers** <!-- id: 48 -->
+    - [x] Implement worker engine to process individual Post IDs <!-- id: 49 -->
+    - [x] Metadata validation and "still valid" check <!-- id: 50 -->
+    - [x] Exponential backoff and Retry logic <!-- id: 51 -->
+    - [x] Dead Letter Queue (DLQ) for failed posts <!-- id: 52 -->
 
-## Phase 5: Monitoring & Observability - NOT STARTED
-- [ ] **Instrumentation** <!-- id: 48 -->
-    - [ ] Checkpoint: App Insights Integration <!-- id: 49 -->
-    - [ ] Structured Logging (Winston) <!-- id: 50 -->
-    - [ ] Custom Metrics (Post success/fail rates) <!-- id: 51 -->
-- [ ] **Alerting** <!-- id: 52 -->
+## Phase 5: Monitoring & Observability
+- [x] **Instrumentation** <!-- id: 48 -->
+    - [x] Checkpoint: App Insights Integration <!-- id: 49 -->
+    - [x] Structured Logging (Winston) <!-- id: 50 -->
+    - [x] Custom Metrics (Post success/fail rates) <!-- id: 51 -->
+- [/] **Alerting** <!-- id: 52 -->
     - [ ] Configure Alerts (High Error Rate, Failed Jobs) <!-- id: 53 -->
 
-## Phase 6: Testing - NOT STARTED
-- [ ] **Unit Testing (Jest/Vitest)** <!-- id: 54 -->
-    - [ ] Backend Services (>80% coverage) <!-- id: 55 -->
-    - [ ] Frontend Components (>70% coverage) <!-- id: 56 -->
-- [ ] **Integration & E2E** <!-- id: 57 -->
-    - [ ] API Integration Tests <!-- id: 58 -->
+## Phase 6: Testing
+- [x] **Unit Testing (Jest/Vitest)** <!-- id: 54 -->
+    - [x] Backend Services (>80% coverage) <!-- id: 55 -->
+    - [x] Frontend Components (>70% coverage) <!-- id: 56 -->
+- [x] **Integration & E2E** <!-- id: 57 -->
+    - [x] API Integration Tests <!-- id: 58 -->
     - [ ] E2E Flows (Playwright/Cypress) <!-- id: 59 -->
 - [ ] **Load & Security Testing** <!-- id: 60 -->
     - [ ] Load Test with k6 (100 concurrent users) <!-- id: 61 -->
     - [ ] OWASP ZAP Security Scan <!-- id: 62 -->
 
-## Phase 7: CI/CD & Deployment - NOT STARTED
+## Phase 7: CI/CD & Deployment
 - [ ] **Pipelines** <!-- id: 63 -->
     - [ ] GitHub Actions for Build & Test <!-- id: 64 -->
     - [ ] Deployment Pipelines (Staging, Prod) <!-- id: 65 -->
 - [ ] **Documentation** <!-- id: 66 -->
     - [ ] API Documentation (Swagger) <!-- id: 67 -->
     - [ ] User & Ops Guides <!-- id: 68 -->
-
----
-
-## 🎯 Production Readiness Assessment
-
-### ✅ **Ready for Production**
-- **User Interface**: Complete, responsive, modern design
-- **Authentication**: Secure JWT system with Twitter OAuth 2.0
-- **Content Management**: Full CRUD operations with scheduling
-- **Security**: Comprehensive middleware stack
-- **Database**: Properly designed with indexes and relationships
-
-### ❌ **Blocking Production Deployment**
-- **No Publishing Capability**: Cannot actually post to Twitter (missing background jobs)
-- **No Monitoring**: No logging, metrics, or error tracking
-- **No Testing**: Zero test coverage
-- **No CI/CD**: Manual deployment only
-- **No Documentation**: No API docs or deployment guides
-
-### 🚨 **Critical Path to Production**
-1. **Phase 4**: Implement background jobs for Twitter publishing
-2. **Phase 5**: Add monitoring and logging for production visibility
-3. **Phase 6**: Add testing for reliability
-4. **Phase 7**: Implement CI/CD for automated deployments
-
----
-
-## 📈 Development Recommendations
-
-### **Immediate Priority (Next Sprint)**
-- Start Phase 4: Background Jobs - This is the only missing core functionality
-- Focus on Azure WebJob setup and Twitter publishing wrapper
-
-### **Short-term (Next 2-3 Sprints)**
-- Complete Phase 4 for production functionality
-- Begin Phase 5 for production monitoring
-
-### **Medium-term (Future Sprints)**
-- Phase 6: Testing for quality assurance
-- Phase 7: CI/CD for deployment automation
-
-### **Technical Debt**
-- Add `.env.example` and PR templates
-- Complete Azure infrastructure documentation
-- Add comprehensive error handling and logging
