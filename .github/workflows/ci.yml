@@ -50,11 +50,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    # Temporarily disabled due to Vitest worker issues in CI
-    # - name: Run tests
-    #   run: npm test -- --run --no-file-parallelism
-    #   env:
-    #     CI: true
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
       
     - name: Run build
       run: npm run build

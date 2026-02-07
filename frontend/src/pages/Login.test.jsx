@@ -1,11 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import Login from './Login';
 import { MemoryRouter } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-vi.mock('../context/AuthContext', () => ({
-    useAuth: vi.fn()
+jest.mock('../context/AuthContext', () => ({
+    useAuth: jest.fn()
 }));
 
 const renderLogin = () => {
@@ -17,10 +17,10 @@ const renderLogin = () => {
 };
 
 describe('Login', () => {
-    const mockLogin = vi.fn();
+    const mockLogin = jest.fn();
 
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
         useAuth.mockReturnValue({
             login: mockLogin,
             loading: false,

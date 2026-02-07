@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import PostList from './PostList';
 import { MemoryRouter } from 'react-router-dom';
 import API from '../api/axios';
 
-vi.mock('../api/axios', () => ({
+jest.mock('../api/axios', () => ({
     default: {
-        get: vi.fn(),
-        delete: vi.fn()
+        get: jest.fn(),
+        delete: jest.fn()
     }
 }));
 
@@ -21,7 +21,7 @@ const renderPostList = () => {
 
 describe('PostList', () => {
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
     });
 
     it('renders post list and fetches data', async () => {

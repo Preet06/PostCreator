@@ -1,19 +1,19 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import Dashboard from './Dashboard';
 import { MemoryRouter } from 'react-router-dom';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
-vi.mock('../api/axios', () => ({
+jest.mock('../api/axios', () => ({
     default: {
-        get: vi.fn(),
-        post: vi.fn()
+        get: jest.fn(),
+        post: jest.fn()
     }
 }));
 
-vi.mock('../context/AuthContext', () => ({
-    useAuth: vi.fn()
+jest.mock('../context/AuthContext', () => ({
+    useAuth: jest.fn()
 }));
 
 const renderDashboard = () => {
@@ -26,7 +26,7 @@ const renderDashboard = () => {
 
 describe('Dashboard', () => {
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
         useAuth.mockReturnValue({
             user: { name: 'Test User', twitterTokens: { accessToken: 'token' } },
             loading: false

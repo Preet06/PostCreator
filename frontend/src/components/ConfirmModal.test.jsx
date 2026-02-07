@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi } from '@jest/globals';
 import ConfirmModal from './ConfirmModal';
 
 describe('ConfirmModal', () => {
@@ -19,8 +19,8 @@ describe('ConfirmModal', () => {
     });
 
     it('calls onConfirm and onClose when confirm is clicked', () => {
-        const onConfirm = vi.fn();
-        const onClose = vi.fn();
+        const onConfirm = jest.fn();
+        const onClose = jest.fn();
         render(
             <ConfirmModal isOpen={true} title="T" message="M" onConfirm={onConfirm} onClose={onClose} />
         );
@@ -31,7 +31,7 @@ describe('ConfirmModal', () => {
     });
 
     it('calls onClose when cancel is clicked', () => {
-        const onClose = vi.fn();
+        const onClose = jest.fn();
         render(
             <ConfirmModal isOpen={true} title="T" message="M" onConfirm={() => { }} onClose={onClose} />
         );

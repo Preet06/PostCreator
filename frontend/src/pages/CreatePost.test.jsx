@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import CreatePost from './CreatePost';
 import { MemoryRouter } from 'react-router-dom';
 import API from '../api/axios';
 
-vi.mock('../api/axios', () => ({
+jest.mock('../api/axios', () => ({
     default: {
-        post: vi.fn(),
-        get: vi.fn()
+        post: jest.fn(),
+        get: jest.fn()
     }
 }));
 
@@ -27,7 +27,7 @@ const mockVariations = {
 
 describe('CreatePost', () => {
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
     });
 
     it('renders the create post form', () => {

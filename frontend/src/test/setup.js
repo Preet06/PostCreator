@@ -1,22 +1,23 @@
 import '@testing-library/jest-dom';
-import { vi } from 'vitest';
-import React from 'react';
+import { TextEncoder, TextDecoder } from 'util';
+
+// Polyfill TextEncoder/TextDecoder for jsdom
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 // Mock framer-motion to avoid ESM issues
-vi.mock('framer-motion', () => ({
+jest.mock('framer-motion', () => ({
     motion: new Proxy({}, {
-        get: (target, prop) => {
-            return React.forwardRef(({ children, ...props }, ref) =>
-                React.createElement(prop, { ...props, ref }, children)
-            );
+        get: () => {
+            return ({ children, ...props }) => children;
         }
     }),
     AnimatePresence: ({ children }) => children,
 }));
 
 // Mock Lucide icons as they can be tricky in tests
-vi.mock('lucide-react', async () => {
-    const actual = await vi.importActual('lucide-react');
+jest.mock('lucide-react', () => {
+    const actual = jest.requireActual('lucide-react');
     return {
         ...actual,
         // Add specific mocks if needed, or just let them be
@@ -26,14 +27,14 @@ vi.mock('lucide-react', async () => {
 // Mock browser APIs not available in JSDOM
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: vi.fn().mockImplementation(query => ({
+    value: jest.fn().mockImplementation(query => ({
         matches: false,
         media: query,
         onchange: null,
-        addListener: vi.fn(), // deprecated
-        removeListener: vi.fn(), // deprecated
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
+        addListener: jest.fn(), // deprecated
+        removeListener: jest.fn(), // deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
     })),
 });

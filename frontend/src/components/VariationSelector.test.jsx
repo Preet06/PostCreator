@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi } from '@jest/globals';
 import VariationSelector from './VariationSelector';
 
 const mockVariations = {
@@ -22,7 +22,7 @@ describe('VariationSelector', () => {
     });
 
     it('calls onSelect when a variation is clicked', () => {
-        const onSelect = vi.fn();
+        const onSelect = jest.fn();
         render(<VariationSelector variations={mockVariations} onSelect={onSelect} />);
 
         const originalCard = screen.getByText('Original').closest('div');
@@ -47,7 +47,7 @@ describe('VariationSelector', () => {
     });
 
     it('disables selection when isSaved is true', () => {
-        const onSelect = vi.fn();
+        const onSelect = jest.fn();
         render(
             <VariationSelector
                 variations={mockVariations}

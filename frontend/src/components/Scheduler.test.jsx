@@ -1,15 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import Scheduler from './Scheduler';
 
 describe('Scheduler', () => {
-    const onSchedule = vi.fn();
-    const onCancel = vi.fn();
+    const onSchedule = jest.fn();
+    const onCancel = jest.fn();
 
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
+        jest.useFakeTimers();
         // Mock current time to a fixed point: 2026-02-06T18:00:00
-        vi.setSystemTime(new Date('2026-02-06T18:00:00'));
+        jest.setSystemTime(new Date('2026-02-06T18:00:00'));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it('renders with default values (1 hour from now)', () => {

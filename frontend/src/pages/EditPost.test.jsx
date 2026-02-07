@@ -1,14 +1,14 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import EditPost from './EditPost';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import API from '../api/axios';
 
-vi.mock('../api/axios', () => ({
+jest.mock('../api/axios', () => ({
     default: {
-        get: vi.fn(),
-        put: vi.fn(),
-        delete: vi.fn()
+        get: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn()
     }
 }));
 
@@ -31,7 +31,7 @@ const renderEditPost = (id = '123') => {
 
 describe('EditPost', () => {
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
     });
 
     it('loads and displays post data', async () => {

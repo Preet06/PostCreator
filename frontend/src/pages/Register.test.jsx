@@ -1,11 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import Register from './Register';
 import { MemoryRouter } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-vi.mock('../context/AuthContext', () => ({
-    useAuth: vi.fn()
+jest.mock('../context/AuthContext', () => ({
+    useAuth: jest.fn()
 }));
 
 const renderRegister = () => {
@@ -17,10 +17,10 @@ const renderRegister = () => {
 };
 
 describe('Register', () => {
-    const mockRegister = vi.fn();
+    const mockRegister = jest.fn();
 
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
         useAuth.mockReturnValue({
             register: mockRegister,
             loading: false,

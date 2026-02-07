@@ -1,9 +1,9 @@
 import { render, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import { AuthProvider, useAuth } from './AuthContext';
 import API from '../api/axios';
 
-vi.mock('../api/axios');
+jest.mock('../api/axios');
 
 const TestComponent = () => {
     const { user, login, logout, loading } = useAuth();
@@ -19,7 +19,7 @@ const TestComponent = () => {
 
 describe('AuthContext', () => {
     beforeEach(() => {
-        vi.clearAllMocks();
+        jest.clearAllMocks();
     });
 
     it('checks login status on mount', async () => {
